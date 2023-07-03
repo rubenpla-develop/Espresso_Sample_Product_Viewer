@@ -60,7 +60,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun setNewQuantity_subLimit_not_increases_textfield() {
+    fun setNewQuantity_subLimit_decreases_textfield() {
         onView(withId(R.id.etNewQuantity))
             .perform(ViewActions.replaceText("11"))
 
@@ -69,6 +69,28 @@ class MainActivityTest {
         onView(withId(R.id.etNewQuantity))
             .check(
                 matches(withText("10"))
+            )
+    }
+
+    @Test
+    fun setNewQuantity_subLimit_not_decreases_textfield() {
+        val scenario = activityRule.scenario
+        scenario.moveToState(Lifecycle.State.RESUMED)
+
+        scenario.onActivity { activity ->
+            activity.selectedProduct.quantity = 1
+        }
+
+        onView(withId(R.id.etNewQuantity))
+            .check(
+                matches(withText("1"))
+            )
+
+        onView(withId(R.id.ibSub)).perform(click())
+
+        onView(withId(R.id.etNewQuantity))
+            .check(
+                matches(withText("1"))
             )
     }
 }
