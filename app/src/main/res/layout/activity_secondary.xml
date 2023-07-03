@@ -38,6 +38,7 @@
             android:textAlignment="center"
             android:inputType="number"
             android:imeOptions="actionDone"
+            android:text="5"
             android:contentDescription="@string/description_new_quantity_alt"
             tools:text="5"/>
     </com.google.android.material.textfield.TextInputLayout>
